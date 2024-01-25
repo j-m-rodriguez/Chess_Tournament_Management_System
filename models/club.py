@@ -39,7 +39,7 @@ class ChessClub:
         with open(self.filepath, "w") as fp:
             json.dump(
                 {"name": self.name, "players": [p.serialize() for p in self.players]},
-                fp,
+                fp, indent=4
             )
 
     def create_player(self, **kwargs):
