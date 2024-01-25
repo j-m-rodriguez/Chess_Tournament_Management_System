@@ -3,6 +3,7 @@ from datetime import datetime
 from .player import Player
 from .round import Round
 from .match import Match
+from .search_player import SearchPlayer
 
 
 class Tournament:
@@ -29,7 +30,8 @@ class Tournament:
         self.number_of_rounds = number_of_rounds
         self.current_round = None
         self.completed = False
-        self.players = {}
+        self.players = []
+        self.scores = {}
         self.finished = False
         self.rounds = []
 
@@ -45,10 +47,10 @@ class Tournament:
                 self.number_of_rounds = data["number_of_rounds"]
                 self.current_round = data["current_round"]
                 self.completed = data["completed"]
-                self.players = {}
                 for player in data["players"]:
-                    self.players[player] = 0.0
+                    self.players.extend(SearchPlayer(player).players)
                 self.finished = data["finished"]
+
                 round_number = 1
                 for json_round in data["rounds"]:
                     tourney_round = Round(1)
@@ -79,7 +81,7 @@ class Tournament:
                     "number_of_rounds": self.number_of_rounds,
                     "current_round": self.current_round,
                     "completed": self.completed,
-                    "players": [player for player in self.players.keys()],
+                    "players": [player.chess_id for player in self.players],
                     "finished": self.finished,
                     "rounds": [tourney_round.round_serialize() for tourney_round in self.rounds]
                 },
@@ -106,6 +108,7 @@ class Tournament:
         """Sets the end date (datetime) from a string"""
         self.end_date = datetime.strptime(value, self.DATE_FORMAT)
 
+    # need to redo after changing self.players to Player instances
     def register_player(self, player):
         if type(player) is Player:
             self.players[player.chess_id] = 0.0
@@ -114,6 +117,7 @@ class Tournament:
         self.save()
         return player
 
+    # redo after changing self.players to Player instances
     def load_tournament_score(self, data):
         """For setting player scores based on json data"""
         for each_round in data["rounds"]:
@@ -126,6 +130,7 @@ class Tournament:
                     load_match.set_match_score()
                     self.update_tournament_score(load_match.match_score)
 
+    # not sure if I need to redo
     def update_tournament_score(self, match_score):
         """Updates player scores after match completion"""
         for k, v in match_score.items():
