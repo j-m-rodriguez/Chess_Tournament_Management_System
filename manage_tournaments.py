@@ -1,5 +1,6 @@
-from commands import TournamentListCmd
-from screens import TournamentCreate, TournamentView, TournamentMenu, RegisterPlayer, MatchResult, Report, AdvanceRound
+from commands import TournamentStart
+from screens import (TournamentCreate, TournamentView, TournamentMenu, FindPlayer,
+                     RegisterPlayer, MatchResult, Report, AdvanceRound)
 
 
 class App:
@@ -10,6 +11,7 @@ class App:
         "tournament-create": TournamentCreate,
         "tournament-view": TournamentView,
         "enter-match-results": MatchResult,
+        "find-player": FindPlayer,
         "register-player": RegisterPlayer,
         "tournament-report": Report,
         "advance-round": AdvanceRound,
@@ -18,7 +20,7 @@ class App:
 
     def __init__(self):
         # We start with the list of tournaments (= main menu)
-        command = TournamentListCmd()
+        command = TournamentStart()
         self.context = command()
 
     def run(self):

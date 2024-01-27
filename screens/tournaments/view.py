@@ -13,7 +13,6 @@ class TournamentView(BaseScreen):
         print("")
         print("##", self.tournament.name)
         print("Start date:", self.tournament.start_date, "  End date:", self.tournament.end_date)
-        #self.tournament.dates
         print("Rounds:", self.tournament.number_of_rounds)
         print("Current Round:", self.tournament.current_round)
         print("Venue:", self.tournament.venue)
@@ -22,21 +21,22 @@ class TournamentView(BaseScreen):
     def get_command(self):
         """Gets the command for this screen"""
         while True:
-            print("Type 'P' to register a player")
-            print("Type 'M' to enter results of the matches for the current round")
-            print("Type 'A' to advance to the next round")
-            print("Type 'R' to generate a tournament report")
-            print("Type 'B' to go back to the tournament main menu.")
-            action = self.input_string()
+            print("Enter a number to select an option, or type 'B' to go back.")
+            print("1. Register a player for the tournament")
+            print("2. Enter results of the matches for the current round")
+            print("3. Advance to the next round")
+            print("4. View a tournament report")
+            print("[Back]")
+            action = self.input_string("What would you like to do")
 
             # Need to come back and update all return values after creating commands
-            if action.upper() == "B":
-                return TournamentListCmd()
-            elif action.upper() == "P":
-                return NoopCmd("register-player", tournament=self.tournament)
-            elif action.upper() == "M":
+            if action.upper() == "1":
+                return NoopCmd("find-player", tournament=self.tournament)
+            elif action.upper() == "2":
                 return NoopCmd("enter-match-results")
-            elif action.upper() == "A":
+            elif action.upper() == "3":
                 return NoopCmd("advance-round")
-            elif action.upper() == "R":
-                return NoopCmd("player-edit")
+            elif action.upper() == "4":
+                return NoopCmd("tournament-report")
+            elif action.upper() == "B":
+                return TournamentListCmd()

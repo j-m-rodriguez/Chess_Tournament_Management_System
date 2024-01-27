@@ -47,10 +47,13 @@ class Tournament:
                 self.number_of_rounds = data["number_of_rounds"]
                 self.current_round = data["current_round"]
                 self.completed = data["completed"]
+                found_players = []
                 for player in data["players"]:
-                    self.players.extend(SearchPlayer(player).players)
+                    found_players.append(SearchPlayer(player).player)
+                self.players.extend(found_players)
+                for player in self.players:
+                    self.scores[player] = 0
                 self.finished = data["finished"]
-
                 round_number = 1
                 for json_round in data["rounds"]:
                     tourney_round = Round(1)
@@ -68,9 +71,6 @@ class Tournament:
 
     def save(self):
         """Saves the tournament info to the JSON file"""
-
-        if self.filepath is None:
-            self.filepath = "../data/tournaments/" + self.name + ".json"
 
         with open(self.filepath, "w") as fp:
             json.dump(
@@ -111,9 +111,11 @@ class Tournament:
     # need to redo after changing self.players to Player instances
     def register_player(self, player):
         if type(player) is Player:
-            self.players[player.chess_id] = 0.0
+            self.players.append(player)
         else:
-            self.players[player] = 0.0
+            player = SearchPlayer(player)
+            self.players.append(player)
+        self.scores[player] = 0
         self.save()
         return player
 
@@ -123,10 +125,20 @@ class Tournament:
         for each_round in data["rounds"]:
             for match in each_round:
                 if match["completed"] is True:
-                    load_match = Match(match["players"],
-                                       completed=match["completed"],
-                                       winner=match["winner"]
-                                       )
+                    player_list = []
+                    for player in match["players"]:
+                        player_list.append(SearchPlayer(player).player)
+                    if match["winner"] is not None:
+                        winner = SearchPlayer(match["winner"]).player
+                        load_match = Match(player_list,
+                                           completed=match["completed"],
+                                           winner=winner
+                                           )
+                    else:
+                        load_match = Match(player_list,
+                                           completed=match["completed"],
+                                           winner=match["winner"]
+                                           )
                     load_match.set_match_score()
                     self.update_tournament_score(load_match.match_score)
 
@@ -134,7 +146,7 @@ class Tournament:
     def update_tournament_score(self, match_score):
         """Updates player scores after match completion"""
         for k, v in match_score.items():
-            self.players[k] += v
+            self.scores[k] += v
 
     def advance_to_next_round(self):
         pass
