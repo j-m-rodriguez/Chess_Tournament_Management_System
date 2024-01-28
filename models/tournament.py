@@ -14,7 +14,7 @@ class Tournament:
 
     DATE_FORMAT = "%d-%m-%Y"
 
-    def __init__(self, filepath="", name="", start_date=None, end_date=None, venue="", number_of_rounds=0):
+    def __init__(self, filepath=None, name=None, start_date="", end_date="", venue="", number_of_rounds=1):
         """The constructor works in two ways:
         - if the filepath is provided, it loads data from JSON
         - if it is not but a name is provided, it creates a new tournament (and a new JSON file)
@@ -27,12 +27,11 @@ class Tournament:
         self.end_date = end_date
         self.dates = {"from": self.start_date, "to": self.end_date}
         self.venue = venue
-        self.number_of_rounds = number_of_rounds
-        self.current_round = None
+        self.number_of_rounds = int(number_of_rounds)
+        self.current_round = 0
         self.completed = False
         self.players = []
         self.scores = {}
-        self.finished = False
         self.rounds = []
 
         if filepath and not name:
@@ -53,17 +52,19 @@ class Tournament:
                 self.players.extend(found_players)
                 for player in self.players:
                     self.scores[player] = 0
-                self.finished = data["finished"]
                 round_number = 1
                 for json_round in data["rounds"]:
-                    tourney_round = Round(1)
+                    tourney_round = Round(current_round=round_number)
                     round_number += 1
                     self.rounds.append(tourney_round)
                     for json_match in json_round:
-                        match = Match(json_match["players"], completed=json_match["completed"],
-                                      winner=json_match["winner"])
+                        match_players = []
+                        for player in json_match["players"]:
+                            match_players.append(SearchPlayer(player).player)
+                        match = Match(match_players, completed=json_match["completed"],
+                                      winner=SearchPlayer(json_match["winner"]).player)
                         tourney_round.matches.append(match)
-                self.load_tournament_score(data)
+                self.load_tournament_score()
 
         elif not filepath:
             # We did not have a file, so we are going to create it by running the save method
@@ -82,11 +83,39 @@ class Tournament:
                     "current_round": self.current_round,
                     "completed": self.completed,
                     "players": [player.chess_id for player in self.players],
-                    "finished": self.finished,
                     "rounds": [tourney_round.round_serialize() for tourney_round in self.rounds]
                 },
                 fp, indent=4
             )
+
+    # need to redo after changing self.players to Player instances
+    def register_player(self, player):
+        if type(player) is Player:
+            self.players.append(player)
+        else:
+            player = SearchPlayer(player)
+            self.players.append(player)
+        self.scores[player] = 0
+        self.save()
+        return player
+
+    # redo after changing self.players to Player instances
+    def load_tournament_score(self):
+        """For setting player scores based on json data"""
+        for score in self.scores:
+            self.scores[score] = 0
+        for each_round in self.rounds:
+            for match in each_round.matches:
+                match.set_match_score()
+                for player, score in match.match_score.items():
+                    self.scores[player] += score
+        self.save()
+
+    def advance_to_next_round(self):
+        pass
+        """
+        come back and do this later
+        """
 
     @property
     def start(self):
@@ -107,49 +136,3 @@ class Tournament:
     def end(self, value):
         """Sets the end date (datetime) from a string"""
         self.end_date = datetime.strptime(value, self.DATE_FORMAT)
-
-    # need to redo after changing self.players to Player instances
-    def register_player(self, player):
-        if type(player) is Player:
-            self.players.append(player)
-        else:
-            player = SearchPlayer(player)
-            self.players.append(player)
-        self.scores[player] = 0
-        self.save()
-        return player
-
-    # redo after changing self.players to Player instances
-    def load_tournament_score(self, data):
-        """For setting player scores based on json data"""
-        for each_round in data["rounds"]:
-            for match in each_round:
-                if match["completed"] is True:
-                    player_list = []
-                    for player in match["players"]:
-                        player_list.append(SearchPlayer(player).player)
-                    if match["winner"] is not None:
-                        winner = SearchPlayer(match["winner"]).player
-                        load_match = Match(player_list,
-                                           completed=match["completed"],
-                                           winner=winner
-                                           )
-                    else:
-                        load_match = Match(player_list,
-                                           completed=match["completed"],
-                                           winner=match["winner"]
-                                           )
-                    load_match.set_match_score()
-                    self.update_tournament_score(load_match.match_score)
-
-    # not sure if I need to redo
-    def update_tournament_score(self, match_score):
-        """Updates player scores after match completion"""
-        for k, v in match_score.items():
-            self.scores[k] += v
-
-    def advance_to_next_round(self):
-        pass
-        """
-        come back and do this later
-        """

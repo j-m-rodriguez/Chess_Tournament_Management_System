@@ -16,7 +16,7 @@ class TournamentMenu(BaseScreen):
 
     def get_command(self):
         while True:
-            print("Type C to create a tournament or a tournament number to view/edit it.")
+            print("Enter a number to select a tournament or type 'C' to create a new one.")
             print("Type X to exit.")
             value = self.input_string()
             if value.isdigit():

@@ -27,9 +27,9 @@ class TournamentManager:
         #    self.tournament_dates.append([tournament.name, tournament.start_date])
         #self.tournament_dates = sorted(self.tournament_dates, key=operator.itemgetter(1, 0), reverse=True)
 
-    def create(self, name):
+    def create(self, name, **kwargs):
         filepath = self.data_folder / (name.replace(" ", "") + ".json")
-        tournament = Tournament(name=name, filepath=filepath)
+        tournament = Tournament(name=name, filepath=filepath, **kwargs)
         tournament.save()
 
         self.tournaments.append(tournament)

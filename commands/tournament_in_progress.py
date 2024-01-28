@@ -13,4 +13,4 @@ class TournamentStart(BaseCommand):
         if len(tm.in_progress) == 1:
             return Context("tournament-view", tournament=tm.in_progress[0])
         else:
-            return TournamentListCmd()
+            return Context("tournament-menu", tournaments=tm.tournaments)

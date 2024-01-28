@@ -5,15 +5,17 @@ class Match:
         self.winner = winner
         self.match_score = {players[0]: 0.0, players[1]: 0.0}
 
+    def set_result(self, winner=None):
+        if winner is not None:
+            self.match_winner(winner)
+        elif winner is None:
+            self.match_draw()
+
     def match_winner(self, winner):
-        self.winner = self.players[winner]
+        self.winner = winner
         self.completed = True
 
         self.set_match_score()
-        """
-        assign scores based on match outcome
-        dictionary playerID : score
-        """
 
     def match_draw(self):
         self.completed = True
@@ -25,10 +27,12 @@ class Match:
         """
         This is automatically called after setting the winner (or tie)
         """
+        for player in self.players:
+            self.match_score[player] = 0
         if self.completed is True and self.winner is None:
             self.match_score[self.players[0]] = 0.5
             self.match_score[self.players[1]] = 0.5
-        elif self.completed is True and self.winner is not None:
+        elif self.completed is True:
             self.match_score[self.winner] = 1.0
 
         """
@@ -44,4 +48,11 @@ class Match:
             print("This match is not over yet.")
 
     def match_serialize(self):
-        return {"players": self.players, "completed": self.completed, "winner": self.winner}
+        if self.winner is not None:
+            return {"players": [player.chess_id for player in self.players],
+                    "completed": self.completed,
+                    "winner": self.winner.chess_id}
+        else:
+            return {"players": [player.chess_id for player in self.players],
+                    "completed": self.completed,
+                    "winner": self.winner}

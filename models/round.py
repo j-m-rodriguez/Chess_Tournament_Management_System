@@ -3,7 +3,7 @@ from .match import Match
 
 
 class Round:
-    def __init__(self, current_round):
+    def __init__(self, current_round=1):
         self.current_round = current_round
 
         self.players = []

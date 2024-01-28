@@ -9,7 +9,9 @@ class SearchPlayer:
         self.players = []
         self.player = None
 
-        if re.fullmatch("[a-zA-Z]{2}[0-9]{5}", self.identifier):
+        if self.identifier is None:
+            pass
+        elif re.fullmatch("[a-zA-Z]{2}[0-9]{5}", self.identifier):
             self.search_by_id()
         elif re.fullmatch(r"[a-zA-Z]+\s*[a-zA-Z]*", self.identifier):
             self.search_by_name()
