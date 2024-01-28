@@ -9,4 +9,5 @@ class MatchListCmd(BaseCommand):
         self.ongoing_matches = self.ongoing_round.matches
 
     def execute(self):
-        return Context("match-result", tournament=self.tournament, round=self.ongoing_round, matches=self.ongoing_matches)
+        return Context("match-result", tournament=self.tournament,
+                       round=self.ongoing_round, matches=self.ongoing_matches)

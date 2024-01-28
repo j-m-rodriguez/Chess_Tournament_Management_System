@@ -1,4 +1,4 @@
-from commands import PlayerListCmd, NoopCmd, RegisterPlayerCmd
+from commands import NoopCmd, RegisterPlayerCmd
 
 from ..base_screen import BaseScreen
 

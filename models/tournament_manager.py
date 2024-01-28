@@ -1,6 +1,5 @@
 import json
 from pathlib import Path
-import operator
 
 from .tournament import Tournament
 
@@ -22,10 +21,6 @@ class TournamentManager:
         for tournament in self.tournaments:
             if not tournament.completed:
                 self.in_progress.append(tournament)
-
-        #for tournament in self.tournaments:
-        #    self.tournament_dates.append([tournament.name, tournament.start_date])
-        #self.tournament_dates = sorted(self.tournament_dates, key=operator.itemgetter(1, 0), reverse=True)
 
     def create(self, name, **kwargs):
         filepath = self.data_folder / (name.replace(" ", "") + ".json")

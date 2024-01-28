@@ -12,7 +12,8 @@ class MatchResult(BaseScreen):
     def display(self):
         print(f"\nRound #{self.tournament.current_round} matches:")
         for idx, match in enumerate(self.matches, 1):
-            print(str(idx)+".", match.players[0].name, "vs", match.players[1].name+",", f"Completed: {match.completed}")
+            print(str(idx)+".", match.players[0].name, "vs", match.players[1].name+",",
+                  f"Winner: {match.winner}" if match.winner else "Draw")
 
     def get_command(self):
         while True:
@@ -27,8 +28,6 @@ class MatchResult(BaseScreen):
             print(prompt)
             print("[Back]")
             value = self.input_string()
-            #if prompt == "All of the matches for this round have been completed":
-            #    return NoopCmd("tournament-view", tournament=self.tournament)
 
             if value.upper() == "B":
                 return NoopCmd("tournament-view", tournament=self.tournament)

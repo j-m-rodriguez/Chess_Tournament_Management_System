@@ -1,5 +1,4 @@
 from commands.context import Context
-from commands.tournament_list import TournamentListCmd
 from models import TournamentManager
 
 from .base import BaseCommand
