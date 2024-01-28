@@ -1,3 +1,31 @@
+# Instructions for Mac:
+
+    Download files from this repository or create a clone using the code below.
+
+    $ git clone https://github.com/j-m-rodriguez/OpenClassrooms_Project3
+
+    Navigate to the directory containing the repository.
+
+    $ cd OpenClassrooms_Project3
+
+    Run the application.
+
+    $ python manage_Tournaments.py
+
+# Instructions for Windows Powershell:
+
+    Download files from this repository or create a clone using the code below.
+
+    $ git clone https://github.com/j-m-rodriguez/OpenClassrooms_Project3
+
+    Navigate to the directory containing the repository.
+
+    $ cd OpenClassrooms_Project3
+
+    Run the application.
+
+    $ python manage_tournaments.py
+
 # Starter code - OpenClassrooms WPS | P3
 
 This repository contains the work that has been done so far on the chess tournament program.
