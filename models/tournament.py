@@ -133,6 +133,7 @@ class Tournament:
 
     def end_tournament(self):
         self.completed = True
+        self.current_round = None
 
     @property
     def start(self):
