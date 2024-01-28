@@ -6,6 +6,7 @@ from .register_player import RegisterPlayer
 from .report import Report
 from .view import TournamentView
 from .advance_round import AdvanceRound
+from .tournament_complete import TournamentComplete
 
 __all__ = ["TournamentView", "TournamentCreate", "Report", "EnterResults",
-           "MatchResult", "RegisterPlayer", "FindPlayer", "AdvanceRound"]
+           "MatchResult", "RegisterPlayer", "FindPlayer", "AdvanceRound", "TournamentComplete"]

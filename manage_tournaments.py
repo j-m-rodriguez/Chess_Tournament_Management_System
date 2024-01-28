@@ -1,6 +1,6 @@
 from commands import TournamentStart
-from screens import (TournamentCreate, TournamentView, TournamentMenu, FindPlayer,
-                     RegisterPlayer, MatchResult, EnterResults, Report, AdvanceRound)
+from screens import (TournamentCreate, TournamentView, TournamentMenu, FindPlayer, RegisterPlayer,
+                     MatchResult, EnterResults, Report, AdvanceRound, TournamentComplete)
 
 
 class App:
@@ -16,6 +16,7 @@ class App:
         "register-player": RegisterPlayer,
         "tournament-report": Report,
         "advance-round": AdvanceRound,
+        "tournament-complete": TournamentComplete,
         "exit": False,
     }
 

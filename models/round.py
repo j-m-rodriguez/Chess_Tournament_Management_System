@@ -11,28 +11,38 @@ class Round:
         self.ranking = []
         self.scores = {}
 
-    def matchmaking(self):
+    def matchmaking(self, players, ranking):
         """
         move to Tournament
         """
         if self.current_round == 1:
-            self.ranking = self.players.copy()
-            random.shuffle(self.ranking)
+            self.randomize(players)
+
         else:
-            self.ranking = sorted(self.scores, key=lambda x: x[1], reverse=True)
-        for i in range(0, len(self.ranking), 2):
-            pair = self.ranking[i:i + 2]
-            """
-            Make list of these pairings
-            checking for identical pairs in Tournament.rounds.matches
-            take identical pairs and shuffle
-            run matchmaking again
-            """
+            for i in range(0, len(ranking), 2):
+                players = []
+                for player in ranking.keys():
+                    players.append(player)
+                pair = players[i:i + 2]
+                """
+                Make list of these pairings
+                checking for identical pairs in Tournament.rounds.matches
+                take identical pairs and shuffle
+                run matchmaking again
+                """
+                match = Match(pair)
+                self.matches.append(match)
+
+    def randomize(self, players):
+        random.shuffle(players)
+        for i in range(0, len(players), 2):
+            pair = players[i:i + 2]
             match = Match(pair)
             self.matches.append(match)
 
     def __str__(self):
-        return f"{self.matches}"
+        for match in self.matches:
+            return f"{match.players[0]} vs {match.players[1]}"
 
     def round_serialize(self):
         """Use this to format tournament rounds/matches for json"""

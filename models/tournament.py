@@ -32,7 +32,7 @@ class Tournament:
         self.completed = False
         self.players = []
         self.scores = {}
-        self.ranking = []
+        self.ranking = {}
         self.rounds = []
 
         if filepath and not name:
@@ -110,15 +110,29 @@ class Tournament:
                 match.set_match_score()
                 for player, score in match.match_score.items():
                     self.scores[player] += score
-        self.ranking = dict(sorted(self.scores.items(), key=lambda x:x[1], reverse=True))
+        self.ranking = dict(sorted(self.scores.items(), key=lambda x: x[1], reverse=True))
         self.save()
 
     def advance_to_next_round(self):
-        for match in self.rounds[self.current_round - 1].matches:
-            if match.completed is True:
-                break
-            else:
-                print("Please completed all matches before advancing to the next round.")
+        if self.current_round == self.number_of_rounds:
+            self.end_tournament()
+        else:
+            for match in self.rounds[self.current_round - 1].matches:
+                if match.completed is True:
+                    done = True
+                else:
+                    print("Please complete all matches before advancing to the next round.")
+                    break
+            if done:
+                self.current_round += 1
+                next_round = Round(current_round=self.current_round)
+                next_round.players = self.players
+                next_round.matchmaking(self.players, self.ranking)
+                self.rounds.append(next_round)
+        self.save()
+
+    def end_tournament(self):
+        self.completed = True
 
     @property
     def start(self):

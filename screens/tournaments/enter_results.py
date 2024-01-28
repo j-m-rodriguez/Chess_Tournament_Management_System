@@ -33,7 +33,7 @@ class EnterResults(BaseScreen):
                     elif value.upper() == "B":
                         return NoopCmd("match-results", tournament=self.tournament)
 
-            elif value.upper() == "A":
+            elif value.upper() == "C":
                 if len(self.matches) == len(self.completed_matches):
                     return NoopCmd("match-results", tournament=self.tournament)
                 print("Type a number to enter the winner, or 'D' if it was a draw.")

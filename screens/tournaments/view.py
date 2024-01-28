@@ -43,4 +43,4 @@ class TournamentView(BaseScreen):
             elif action.upper() == "3":
                 return NoopCmd("match-results", tournament=self.tournament)
             elif action.upper() == "4":
-                return NoopCmd("advance-round")
+                return NoopCmd("advance-round", tournament=self.tournament)

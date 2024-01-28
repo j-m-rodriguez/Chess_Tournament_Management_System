@@ -17,5 +17,5 @@ class MatchResultCmd(BaseCommand):
         self.tournament.load_tournament_score()
         if self.value.isdigit():
             return Context("match-results", tournament=self.tournament)
-        elif self.value.upper() == "A":
+        elif self.value.upper() == "C":
             return Context("enter-results", tournament=self.tournament, value=self.value)
