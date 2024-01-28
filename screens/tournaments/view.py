@@ -33,7 +33,7 @@ class TournamentView(BaseScreen):
 
             # Need to come back and update all return values after creating commands
             if action.upper() == "1":
-                return NoopCmd("tournament-report")
+                return NoopCmd("tournament-report", tournament=self.tournament)
             elif action.upper() == "B":
                 return TournamentListCmd()
             elif self.tournament.completed is True:

@@ -32,6 +32,7 @@ class Tournament:
         self.completed = False
         self.players = []
         self.scores = {}
+        self.ranking = []
         self.rounds = []
 
         if filepath and not name:
@@ -109,13 +110,15 @@ class Tournament:
                 match.set_match_score()
                 for player, score in match.match_score.items():
                     self.scores[player] += score
+        self.ranking = dict(sorted(self.scores.items(), key=lambda x:x[1], reverse=True))
         self.save()
 
     def advance_to_next_round(self):
-        pass
-        """
-        come back and do this later
-        """
+        for match in self.rounds[self.current_round - 1].matches:
+            if match.completed is True:
+                break
+            else:
+                print("Please completed all matches before advancing to the next round.")
 
     @property
     def start(self):
