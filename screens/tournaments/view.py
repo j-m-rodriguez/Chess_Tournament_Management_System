@@ -21,7 +21,7 @@ class TournamentView(BaseScreen):
     def get_command(self):
         """Gets the command for this screen"""
         while True:
-            print("Enter a number to select an option, or type 'B' to go back.")
+            print("Enter a number to select an option, or type 'B' to view all tournaments.")
 
             print("1. View a tournament report")
             if self.tournament.completed is False:

@@ -15,7 +15,10 @@ class PlayerListCmd(BaseCommand):
     def execute(self):
         if self.player is not None:
             self.players = SearchPlayer(self.player).players
-            return Context("register-player", tournament=self.tournament, players=self.players)
+            if len(self.players) == 0:
+                return Context("find-player", tournament=self.tournament)
+            else:
+                return Context("register-player", tournament=self.tournament, players=self.players)
 
         else:
             cm = ClubManager()

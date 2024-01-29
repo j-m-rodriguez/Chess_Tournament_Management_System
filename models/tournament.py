@@ -28,7 +28,7 @@ class Tournament:
         self.dates = {"from": self.start_date, "to": self.end_date}
         self.venue = venue
         self.number_of_rounds = int(number_of_rounds)
-        self.current_round = 0
+        self.current_round = 1
         self.completed = False
         self.players = []
         self.scores = {}
@@ -116,14 +116,19 @@ class Tournament:
     def advance_to_next_round(self):
         if self.current_round == self.number_of_rounds:
             self.end_tournament()
+        elif len(self.rounds) < 1:
+            first_round = Round()
+            first_round.randomize(self.players)
+            self.rounds.append(first_round)
         else:
+            done = False
             for match in self.rounds[self.current_round - 1].matches:
                 if match.completed is True:
                     done = True
                 else:
                     print("Please complete all matches before advancing to the next round.")
                     break
-            if done:
+            if done is True:
                 self.current_round += 1
                 next_round = Round(current_round=self.current_round)
                 next_round.players = self.players

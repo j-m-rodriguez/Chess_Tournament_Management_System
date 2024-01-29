@@ -30,7 +30,7 @@ class SearchPlayer:
             if len(self.players) == 1:
                 break
         if len(self.players) == 0:
-            print(f"Player {self.identifier} was not found")
+            print(f"\nPlayer {self.identifier} was not found")
 
     def search_by_name(self):
         """Searches the club database by any portion of a player's name"""
@@ -41,4 +41,4 @@ class SearchPlayer:
                     self.players.append(player)
                     self.player = player
         if len(self.players) == 0:
-            print(f"Player {self.identifier} was not found")
+            print(f"\nPlayer {self.identifier} was not found")

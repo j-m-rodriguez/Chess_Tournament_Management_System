@@ -12,7 +12,7 @@ class Report(BaseScreen):
         print(f"Dates: {self.tournament.start_date} to {self.tournament.end_date}")
         print("\nRanking: ")
         for idx, player in enumerate(self.tournament.ranking, 1):
-            print(idx, player)
+            print(idx, player, ":", self.tournament.scores[player], "point(s)")
         for round in self.tournament.rounds:
             print(f"\nRound #{round.current_round}")
             for match in round.matches:
