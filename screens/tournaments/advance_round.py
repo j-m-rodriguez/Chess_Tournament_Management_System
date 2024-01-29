@@ -18,4 +18,3 @@ class AdvanceRound(BaseScreen):
             return AdvanceRoundCmd(tournament=self.tournament)
         if value.upper() == "B":
             return NoopCmd("tournament-view", tournament=self.tournament)
-

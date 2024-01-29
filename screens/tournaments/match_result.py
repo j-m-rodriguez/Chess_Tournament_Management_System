@@ -38,4 +38,3 @@ class MatchResult(BaseScreen):
                 return NoopCmd("enter-results", tournament=self.tournament, value=value)
             elif value.upper() == "A":
                 return NoopCmd("advance-round", tournament=self.tournament)
-
