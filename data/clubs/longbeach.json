@@ -1,0 +1,65 @@
+{
+    "name": "Long Beach Club",
+    "players": [
+        {
+            "name": "Jonathan",
+            "email": "jrodriguez@gmail.com",
+            "chess_id": "II76890",
+            "birthday": "30-09-1998"
+        },
+        {
+            "name": "Trisha Paytas",
+            "email": "trisha_paytas@gmail.com",
+            "chess_id": "RY03677",
+            "birthday": "08-05-1988"
+        },
+        {
+            "name": "Rihanna",
+            "email": "badgalriri@gmail.com",
+            "chess_id": "RI14529",
+            "birthday": "20-02-1988"
+        },
+        {
+            "name": "Adele",
+            "email": "adele@singer.com",
+            "chess_id": "AV07547",
+            "birthday": "05-05-1988"
+        },
+        {
+            "name": "Pedro Pascal",
+            "email": "pedropascal@noticeme.com",
+            "chess_id": "OU52460",
+            "birthday": "02-04-1975"
+        },
+        {
+            "name": "Lucy Liu",
+            "email": "killbill@icon.net",
+            "chess_id": "LU33889",
+            "birthday": "02-12-1968"
+        },
+        {
+            "name": "Young Mazino",
+            "email": "babydaddy@beef.com",
+            "chess_id": "YJ29085",
+            "birthday": "27-08-1991"
+        },
+        {
+            "name": "Sandra Oh",
+            "email": "sandra@oh.com",
+            "chess_id": "OH36083",
+            "birthday": "20-07-1971"
+        },
+        {
+            "name": "Princess Diana",
+            "email": "shedesrvedbetter@itwasntanaccident.con",
+            "chess_id": "DI98679",
+            "birthday": "01-07-1961"
+        },
+        {
+            "name": "Susan B. Anythony",
+            "email": "susanb@suffrage.org",
+            "chess_id": "SO10595",
+            "birthday": "15-02-1820"
+        }
+    ]
+}
