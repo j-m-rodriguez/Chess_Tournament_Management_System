@@ -1,3 +1,18 @@
+# About
+The Chess Tournament Management System is a comprehensive software solution designed to streamline the organization and management of chess tournaments. This project aims to provide a user-friendly platform for tournament organizers to efficiently manage various aspects of tournament operations, including player registration, tournament creation, match pairing, result recording, and report generation.
+
+### Key Features:
+
+**Player Registration:** Enable players to register for tournaments with ease, providing essential information such as name, contact details, and skill level.
+
+**Tournament Creation:** Facilitate the creation of new tournaments, allowing organizers to define tournament format and scheduling parameters.
+
+**Match Pairing:** Implement intelligent algorithms for pairing players in matches, ensuring fair and balanced matchups based on skill level and tournament format.
+
+**Result Recording:** Provide a convenient interface for recording match results, including scores and game outcomes, to track tournament progress accurately. JSON files are simultaneously updated to prevent any data loss. 
+
+**Report Generation:** Generate comprehensive reports summarizing tournament results, player statistics, and other relevant data for analysis and dissemination.
+
 # Running the application from the terminal
 ### Mac:
     Download files from this repository or create a clone using the code below
